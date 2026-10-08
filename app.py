@@ -24,7 +24,7 @@ if st.button("Generate Quiz 🚀"):
         with st.spinner("AI is preparing your quiz... please wait!"):
             try:
                 # Call Gemini model
-                model = genai.GenerativeModel("gemini-1.5-flash")
+                model = genai.GenerativeModel("gemini-pro")("gemini-1.5-flash")
                 prompt = f"""
                 Create a multiple-choice quiz about {topic} with {num_questions} questions.
                 For each question, provide 4 options (A, B, C, D) and specify the correct answer at the end of each question.
