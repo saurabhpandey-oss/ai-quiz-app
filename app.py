@@ -14,7 +14,7 @@ st.title("🧠 AI-Powered Quiz App")
 st.write("Enter your favorite topic and generate an instant quiz using AI!")
 
 # User inputs
-topic = st.text_input("Which topic do you want a quiz on?", "Python Programming")
+topic = st.text_input("Which topic do you want a quiz on?", "Ssc CGL")
 num_questions = st.slider("How many questions do you want?", min_value=3, max_value=25, value=5)
 
 if st.button("Generate Quiz 🚀"):
@@ -24,7 +24,7 @@ if st.button("Generate Quiz 🚀"):
         with st.spinner("AI is preparing your quiz... please wait!"):
             try:
                 # Call Gemini model
-                model = genai.GenerativeModel("gemini-pro")("gemini-1.5-flash")
+                mmodel = genai.GenerativeModel("gemini-1.5-flash")
                 prompt = f"""
                 Create a multiple-choice quiz about {topic} with {num_questions} questions.
                 For each question, provide 4 options (A, B, C, D) and specify the correct answer at the end of each question.
