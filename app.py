@@ -50,7 +50,7 @@ if st.button("Generate Quiz 🚀"):
                             "content": prompt,
                         }
                     ],
-                    model="llama-3.1-8b-instant",
+                    model="llama-3.3-70b-specdec",
                 )
                 
                 st.success(f"Your {difficulty} level quiz is ready!")
