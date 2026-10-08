@@ -1,17 +1,17 @@
 import streamlit as st
-from openai import OpenAI
+from groq import Groq
 
 # Page Configuration
 st.set_page_config(page_title="AI Quiz App", page_icon="🧠", layout="centered")
 
-# Configure OpenAI API using Streamlit Secrets
-if "OPENAI_API_KEY" in st.secrets:
-    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+# Configure Groq API using Streamlit Secrets
+if "GROQ_API_KEY" in st.secrets:
+    client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 else:
-    st.error("API Key not found in Streamlit Secrets! Please add OPENAI_API_KEY.")
+    st.error("API Key not found in Streamlit Secrets! Please add GROQ_API_KEY.")
 
 st.title("🧠 AI-Powered Quiz App")
-st.write("Enter your topic, choose the difficulty level, and generate exam-level practice questions using ChatGPT!")
+st.write("Enter your topic, choose the difficulty level, and generate exam-level practice questions for free!")
 
 # User inputs
 topic = st.text_input("Which topic do you want a quiz on?", "SSC CGL English Grammar & Quantitative Aptitude")
@@ -25,7 +25,7 @@ if st.button("Generate Quiz 🚀"):
     if not topic:
         st.warning("Please enter a topic first!")
     else:
-        with st.spinner(f"Preparing {difficulty} level exam questions with ChatGPT... please wait!"):
+        with st.spinner(f"Preparing {difficulty} level exam questions... please wait!"):
             try:
                 prompt = f"""
                 You are an expert exam question creator for competitive exams like SSC CGL, Banking, and UPSC.
@@ -43,12 +43,17 @@ if st.button("Generate Quiz 🚀"):
                 Format it neatly with bold headings and bullet points.
                 """
                 
-                response = client.chat.completions.create(
-                    model="gpt-4o-mini",
-                    messages=[{"role": "user", "content": prompt}]
+                chat_completion = client.chat.completions.create(
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": prompt,
+                        }
+                    ],
+                    model="llama-3.3-70b-versatile",
                 )
                 
                 st.success(f"Your {difficulty} level quiz is ready!")
-                st.markdown(response.choices[0].message.content)
+                st.markdown(chat_completion.choices[0].message.content)
             except Exception as e:
                 st.error(f"An error occurred: {e}")
