@@ -11,17 +11,17 @@ else:
     st.error("API Key not found in Streamlit Secrets! Please add GEMINI_API_KEY.")
 
 st.title("🧠 AI-Powered Quiz App")
-st.write("Apne pasand ka topic dalo aur AI se instant quiz generate karo!")
+st.write("Enter your favorite topic and generate an instant quiz using AI!")
 
 # User inputs
-topic = st.text_input("Kis topic par quiz chahiye?", "Python Programming")
-num_questions = st.slider("Kitne sawal chahiye?", min_value=3, max_value=10, value=5)
+topic = st.text_input("Which topic do you want a quiz on?", "Python Programming")
+num_questions = st.slider("How many questions do you want?", min_value=3, max_value=25, value=5)
 
 if st.button("Generate Quiz 🚀"):
     if not topic:
-        st.warning("Pehle koi topic toh daalo!")
+        st.warning("Please enter a topic first!")
     else:
-        with st.spinner("AI quiz taiyar kar raha hai... thoda sabar karo!"):
+        with st.spinner("AI is preparing your quiz... please wait!"):
             try:
                 # Call Gemini model
                 model = genai.GenerativeModel("gemini-1.5-flash")
@@ -32,7 +32,7 @@ if st.button("Generate Quiz 🚀"):
                 """
                 response = model.generate_content(prompt)
                 
-                st.success("Quiz taiyar hai!")
+                st.success("Quiz is ready!")
                 st.markdown(response.text)
             except Exception as e:
-                st.error(f"Kuch galti ho gayi: {e}")
+                st.error(f"An error occurred: {e}")
