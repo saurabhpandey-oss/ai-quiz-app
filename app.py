@@ -24,7 +24,7 @@ if st.button("Generate Quiz 🚀"):
         with st.spinner("Preparing high-level exam questions... please wait!"):
             try:
                 # Call Gemini model (using correct 1.5 flash model)
-                model = genai.GenerativeModel("gemini-1.5-flash")
+                model = genai.GenerativeModel("gemini-3.8-flash")
                 prompt = f"""
                 You are an expert exam question creator for competitive exams like SSC CGL, Banking, and UPSC.
                 Create a high-level, challenging multiple-choice quiz about {topic} with {num_questions} questions.
